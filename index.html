@@ -1,0 +1,384 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Chúc Mừng Ngày 8/3</title>
+    <link type="text/css" rel="stylesheet" href="./asset/style.css">
+    <script type="text/javascript" src="./asset/jquery.min.js"></script>
+    <script type="text/javascript" src="./asset/jscex.min.js"></script>
+    <script type="text/javascript" src="./asset/jscex-parser.js"></script>
+    <script type="text/javascript" src="./asset/jscex-jit.js"></script>
+    <script type="text/javascript" src="./asset/jscex-builderbase.min.js"></script>
+    <script type="text/javascript" src="./asset/jscex-async.min.js"></script>
+    <script type="text/javascript" src="./asset/jscex-async-powerpack.min.js"></script>
+    <script type="text/javascript" src="./asset/functions.js" charset="utf-8"></script>
+    <script type="text/javascript" src="./asset/love.js" charset="utf-8"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Pacifico&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #fff3f8;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #231f20;
+            overflow: auto;
+            margin: 0;
+            padding: 0;
+            background-image: url('data:image/svg+xml;utf8,<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="none"/><path d="M30,50 C35,40 40,35 50,35 C60,35 65,40 70,50 C65,60 60,65 50,65 C40,65 35,60 30,50 Z" fill="%23ffb6c1" opacity="0.1"/></svg>');
+        }
+        #main {
+            width: 100%;
+        }
+        #wrap {
+            position: relative;
+            margin: 0 auto;
+            width: 1100px;
+            height: 680px;
+            margin-top: 10px;
+            overflow: hidden;
+        }
+        #text {
+            width: 450px;
+            height: 425px;
+            left: 60px;
+            top: 80px;
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.85);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(5px);
+            z-index: 100;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            pointer-events: none; /* Prevents interaction with the text box during animation */
+        }
+        #text.show {
+            opacity: 1;
+            pointer-events: auto; /* Re-enables interaction after animation */
+        }
+        #code {
+            display: block; /* Changed from none to block */
+            font-size: 18px;
+            line-height: 1.6;
+            opacity: 0; /* Start hidden */
+        }
+        #code.show {
+            opacity: 1;
+            transition: opacity 1.5s ease-in-out;
+        }
+        .say {
+            margin-left: 5px;
+            margin-bottom: 15px;
+            display: block;
+        }
+        .title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 36px;
+            color: #ff69b4;
+            text-align: center;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .signature {
+            font-family: 'Pacifico', cursive;
+            font-size: 24px;
+            color: #ff69b4;
+            text-align: right;
+            margin-top: 20px;
+        }
+        .heart-icon {
+            display: inline-block;
+            color: #ff1493;
+            font-size: 20px;
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+        .floating-hearts {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 5;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+        .floating-hearts.show {
+            opacity: 1;
+        }
+        .floating-heart {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M50,30 C35,10 10,20 10,40 C10,75 50,90 50,90 C50,90 90,75 90,40 C90,20 65,10 50,30 Z" fill="%23ff69b4" opacity="0.6"/></svg>');
+            background-size: contain;
+            background-repeat: no-repeat;
+            animation: float 15s linear infinite;
+            opacity: 0.6;
+        }
+        @keyframes float {
+            0% { transform: translateY(100vh) scale(1); }
+            100% { transform: translateY(-100px) scale(0); }
+        }
+        #canvas {
+            margin: 0 auto;
+            width: 1100px;
+            height: 680px;
+        }
+        .hand {
+            cursor: pointer;
+        }
+        #ribbon {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 150px;
+            height: 150px;
+            background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M0,0 L100,100 L100,0 Z" fill="%23ff69b4"/><path d="M80,10 L90,20 L60,50 L50,40 Z" fill="white"/><path d="M60,30 L70,40 L40,70 L30,60 Z" fill="white"/></svg>');
+            background-size: cover;
+            z-index: 10;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+        #ribbon.show {
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="main">
+        <div id="wrap">
+            <div id="ribbon"></div>
+            <div id="text">
+                <div id="code">
+                    <div class="title">Chúc Mừng Ngày 8/3</div>
+                    <span class="say">Chúc mừng 8/3 đến những bông hoa rực rỡ đã làm bạn với tớ những năm tháng qua!! <span class="heart-icon">♥</span></span>
+                    <span class="say">Dù cậu là ai, đang ở đâu. Mới quen hay là bạn học cũ nè, tớ đều nhớ tới các cậu và gửi các cậu bức thư siêu siêu cute này.</span>
+                    <span class="say">Nhân ngày 8/3 này, tớ xin chúc cậu mãi xinh đẹp, đáng yêu, luôn hạnh phúc. Chúc cậu luôn gặp may mắn trong cuộc sống và vui vẻ mọi lúc mọi nơi. Nụ cười của cậu còn sáng hơn ánh mặt trời đấy!! <span class="heart-icon">♥</span></span>
+                    <span class="say">Chúc cậu ngày 8/3 thật vui vẻ và tràn đầy sự xinh đẹp cùng với nhiều yêu thương.</span>
+                    <div class="signature">--Tangerineee--</div>
+                </div>
+            </div>
+            <div class="floating-hearts" id="floatingHearts"></div>
+            <canvas id="canvas" width="1100" height="680"></canvas>
+        </div>
+    </div>
+
+    <audio id="myAudio" autoplay="autoplay">
+        <source src="music/nhac.mp3" type="audio/mp3" />
+    </audio>
+
+    <script>
+        // Create floating hearts
+        document.addEventListener('DOMContentLoaded', function() {
+            const container = document.getElementById('floatingHearts');
+            const heartCount = 15;
+            
+            for (let i = 0; i < heartCount; i++) {
+                const heart = document.createElement('div');
+                heart.classList.add('floating-heart');
+                
+                // Random starting position
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.width = (Math.random() * 20 + 10) + 'px';
+                heart.style.height = (Math.random() * 20 + 10) + 'px';
+                
+                // Random animation duration
+                const duration = Math.random() * 10 + 10;
+                heart.style.animationDuration = duration + 's';
+                
+                // Random animation delay
+                heart.style.animationDelay = (Math.random() * 10) + 's';
+                
+                container.appendChild(heart);
+            }
+        });
+    </script>
+</body>
+<script>
+(function () {
+  var canvas = $("#canvas");
+
+  if (!canvas[0].getContext) {
+    $("#error").show();
+    return false;
+  }
+
+  var width = canvas.width();
+  var height = canvas.height();
+  canvas.attr("width", width);
+  canvas.attr("height", height);
+  var opts = {
+    seed: {
+      x: width / 2 - 20,
+      color: "rgb(190, 26, 37)",
+      scale: 2,
+    },
+    branch: [
+      [ 535, 680, 570, 250, 500, 200, 30, 100,
+        [
+          [ 540,500,455,417,340, 400, 13, 100,
+            [[450, 435, 434, 430, 394, 395, 2, 40]],
+          ],
+          [ 550, 445, 600, 356, 680, 345, 12, 100,
+            [[578, 400, 648, 409, 661, 426, 3, 80]],
+          ],
+          [539, 281, 537, 248, 534, 217, 3, 40],
+          [ 546, 397, 413, 247, 328, 244, 9, 80,
+            [
+              [427, 286, 383, 253, 371, 205, 2, 40],
+              [498, 345, 435, 315, 395, 330, 4, 60],
+            ],
+          ],
+          [ 546, 357, 608, 252, 678, 221, 6, 100,
+            [[590, 293, 646, 277, 648, 271, 2, 80]],
+          ],
+        ],
+      ],
+    ],
+    bloom: {
+      num: 700,
+      width: 1080,
+      height: 650,
+    },
+    footer: {
+      width: 1200,
+      height: 5,
+      speed: 10,
+    },
+  };
+
+  var tree = new Tree(canvas[0], width, height, opts);
+  var seed = tree.seed;
+  var foot = tree.footer;
+  var hold = 1;
+
+  canvas
+    .click(function (e) {
+      var offset = canvas.offset(),
+        x,
+        y;
+      x = e.pageX - offset.left;
+      y = e.pageY - offset.top;
+      if (seed.hover(x, y)) {
+        hold = 0;
+        canvas.unbind("click");
+        canvas.unbind("mousemove");
+        canvas.removeClass("hand");
+      }
+    })
+    .mousemove(function (e) {
+      var offset = canvas.offset(),
+        x,
+        y;
+      x = e.pageX - offset.left;
+      y = e.pageY - offset.top;
+      canvas.toggleClass("hand", seed.hover(x, y));
+    });
+
+  var seedAnimate = eval(
+    Jscex.compile("async", function () {
+      seed.draw();
+      while (hold) {
+        $await(Jscex.Async.sleep(10));
+      }
+      while (seed.canScale()) {
+        seed.scale(0.95);
+        $await(Jscex.Async.sleep(10));
+      }
+      while (seed.canMove()) {
+        seed.move(0, 2);
+        foot.draw();
+        $await(Jscex.Async.sleep(10));
+      }
+    })
+  );
+
+  var growAnimate = eval(
+    Jscex.compile("async", function () {
+      do {
+        tree.grow();
+        $await(Jscex.Async.sleep(10));
+      } while (tree.canGrow());
+    })
+  );
+
+  var flowAnimate = eval(
+    Jscex.compile("async", function () {
+      do {
+        tree.flower(2);
+        $await(Jscex.Async.sleep(10));
+      } while (tree.canFlower());
+    })
+  );
+
+  var moveAnimate = eval(
+    Jscex.compile("async", function () {
+      tree.snapshot("p1", 240, 0, 610, 680);
+      while (tree.move("p1", 500, 0)) {
+        foot.draw();
+        $await(Jscex.Async.sleep(10));
+      }
+      foot.draw();
+      tree.snapshot("p2", 500, 0, 610, 680);
+
+      canvas
+        .parent()
+        .css("background", "url(" + tree.toDataURL("image/png") + ")");
+      canvas.css("background", "#ffe");
+      $await(Jscex.Async.sleep(300));
+      canvas.css("background", "none");
+    })
+  );
+
+  var jumpAnimate = eval(
+    Jscex.compile("async", function () {
+      var ctx = tree.ctx;
+      while (true) {
+        tree.ctx.clearRect(0, 0, width, height);
+        tree.jump();
+        foot.draw();
+        $await(Jscex.Async.sleep(25));
+      }
+    })
+  );
+
+  var textAnimate = eval(
+    Jscex.compile("async", function () {
+      document.getElementById('text').classList.add('show');
+      document.getElementById('code').classList.add('show');
+      document.getElementById('floatingHearts').classList.add('show');
+      document.getElementById('ribbon').classList.add('show');
+      $("#code").typewriter();
+    })
+  );
+
+  var runAsync = eval(
+    Jscex.compile("async", function () {
+      $await(seedAnimate());
+      $await(growAnimate());
+      $await(flowAnimate());
+      $await(moveAnimate());
+
+      textAnimate().start();
+      $await(jumpAnimate());
+    })
+  );
+
+  runAsync().start();
+})();
+
+document.addEventListener("click", function() {
+    var audio = document.getElementById("myAudio");
+    audio.play();
+});
+</script>
+
+</html
